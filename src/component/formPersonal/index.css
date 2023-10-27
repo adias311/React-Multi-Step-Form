@@ -1,0 +1,17 @@
+.form form div {
+  margin-bottom: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form form div label {
+  font-weight: bold;
+  color: rgb(25, 25, 90);
+}
+
+.form form div input {
+  padding: 12px;
+  border-radius: 5px;
+  border: none;
+}

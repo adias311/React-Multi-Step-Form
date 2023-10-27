@@ -1,0 +1,15 @@
+.plan {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.arcade , .advanced , .pro {
+  height: 160px;
+  border-radius: 5px;
+  border: 1.6px solid grey;
+}
+
+:is(.arcade , .advanced , .pro).active {
+  border: 1.6px solid rgb(26, 52, 139);
+}
