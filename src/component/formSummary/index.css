@@ -1,0 +1,38 @@
+.summary {
+  border: 1px solid aliceblue;
+  background-color: aliceblue;
+}
+
+.summary div , .summary-total {
+  padding: 0px 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.summary-plan {
+  margin-top: 20px;
+  position: relative;
+}
+
+.summary-plan::after {
+  content: "";
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 92%;
+  height: 1px;
+  background-color: #bcbaba;
+}
+
+.summary-addOns:nth-child(2){
+  margin-top: 35px;
+}
+
+.summary-addOns {
+  margin-bottom: 10px;
+}
+
+.summary-total {
+ margin-top: 20px;
+}
