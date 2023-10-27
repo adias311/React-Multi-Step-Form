@@ -10,15 +10,15 @@ function FormPersonal() {
       </section>
 
       <section className="form_body">
-        <div>
+        <div className="form_input">
           <label htmlFor="name">Name</label>
           <input type="text" id="name" placeholder='Enter your name' />
         </div>
-        <div>
+        <div className="form_input">
           <label htmlFor="email">Email Address</label>
           <input type="email" id="email" placeholder='Enter your email' />
         </div>
-        <div>
+        <div className="form_input">
           <label htmlFor="phone">Phone Number</label>
           <input type="tel" id="phone" placeholder='Enter your phone' />
         </div>

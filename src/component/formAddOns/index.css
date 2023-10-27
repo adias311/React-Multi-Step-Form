@@ -6,8 +6,13 @@
 }
 
 
-.form_body .add-ons :is(.online-service , .larger-storage , .custom) {
+:is(.online-service, .larger-storage, .custom) {
   background-color: rgb(255, 255, 255);
   border-radius: 6px;
   border: 1.5px solid rgb(197, 196, 196);
+}
+
+:is(.online-service, .larger-storage, .custom).active {
+  border: 1.2px solid rgb(26, 52, 139);
+  background-color: rgb(249, 255, 255);
 }
