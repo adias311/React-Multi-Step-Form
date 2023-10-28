@@ -1,59 +1,52 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './App.css';
 import FormStep from './component/formStep/index';
 import FormPersonal from './component/formPersonal/index';
 import FormPlan from './component/formPlan/index';
 import FormAddOns from './component/formAddOns/index';
 import FormSummary from './component/formSummary/index';
+import { useSelector, useDispatch } from 'react-redux';
+import { getStep } from './redux/actions/formSlice';
 
 function App() {
-  const [currentStep, setCurrentStep] = useState(1);
+  const dispatch = useDispatch();
+  const { step } = useSelector((state) => state.formStep);
 
-  useEffect(() => {
-    // Ketika komponen pertama kali dimuat, cek apakah ada state yang tersimpan di localStorage
-    const savedStep = localStorage.getItem('currentStep');
-    if (savedStep) {
-      setCurrentStep(Number(savedStep));
-    }
-  }, []);
 
   const next = () => {
-    if (currentStep < 4) {
-      setCurrentStep((prev) => prev + 1);
-      localStorage.setItem('currentStep', currentStep + 1); // Simpan langkah ke localStorage
+    if (step < 4) {
+      dispatch(getStep({ step: step + 1 })); 
     }
   };
 
   const prev = () => {
-    if (currentStep > 1) {
-      setCurrentStep(currentStep - 1);
-      localStorage.setItem('currentStep', currentStep - 1); // Simpan langkah ke localStorage
+    if (step > 1) {
+      dispatch(getStep({ step: step - 1 }));
     }
   };
 
   return (
     <div className="form_container">
       <div className="step">
-        <FormStep stepNumber={1} title={`YOUR INFO`} isActive={currentStep === 1}></FormStep>
-        <FormStep stepNumber={2} title={`SELECT PLAN`} isActive={currentStep === 2}></FormStep>
-        <FormStep stepNumber={3} title={`ADD-ONS`} isActive={currentStep === 3}></FormStep>
-        <FormStep stepNumber={4} title={`SUMMARY`} isActive={currentStep === 4}></FormStep>
+        <FormStep stepNumber={1} title={`YOUR INFO`} isActive={step === 1}></FormStep>
+        <FormStep stepNumber={2} title={`SELECT PLAN`} isActive={step === 2}></FormStep>
+        <FormStep stepNumber={3} title={`ADD-ONS`} isActive={step === 3}></FormStep>
+        <FormStep stepNumber={4} title={`SUMMARY`} isActive={step === 4}></FormStep>
       </div>
 
       <div className="form">
         <form action="">
-          {currentStep === 1 && <FormPersonal />}
-          {currentStep === 2 && <FormPlan />}
-          {currentStep === 3 && <FormAddOns />}
-          {currentStep === 4 && <FormSummary />}
+          {step === 1 && <FormPersonal />}
+          {step === 2 && <FormPlan />}
+          {step === 3 && <FormAddOns />}
+          {step === 4 && <FormSummary />}
 
           <section className="form_navigate">
-            {currentStep == 1 && <span></span> }
-            {currentStep > 1 && <button className='prev' onClick={() => prev()}>Go Back</button>}
-            {currentStep < 4 && <button className='next' onClick={() => next()}>Next Step</button>}
-            {currentStep == 4 && <button className='next' onClick={() => submitForm()}>Confirm</button>}
+            {step === 1 && <span></span>}
+            {step > 1 && <button className='prev' type="button" onClick={prev}>Go Back</button>}
+            {step < 4 && <button className='next' type="button" onClick={next}>Next Step</button>}
+            {step === 4 && <button className='next' type="button" onClick={() => submitForm()}>Confirm</button>}
           </section>
-
         </form>
       </div>
     </div>
