@@ -1,31 +1,45 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './index.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { setFormPlan } from '../../redux/actions/formSlice';
 
-/**
- * Renders a form for selecting a plan.
- *
- * @return {JSX.Element} The rendered form.
- */
+
 function FormPlan() {
+
+  const dispatch = useDispatch();
+  const { plan: plans } = useSelector((state) => state.formStep);
+
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [planType, setPlanType] = useState(false);
 
   // List of checkboxes
   const checkboxes = [
-    { name: 'arcade', label: 'Arcade' },
-    { name: 'advanced', label: 'Advanced' },
-    { name: 'pro', label: 'Pro' },
+    { name: 'arcade', priceMonthly: 9, priceYearly: 90 },
+    { name: 'advanced', priceMonthly: 12, priceYearly: 120 },
+    { name: 'pro', priceMonthly: 15, priceYearly: 150 },
   ];
 
-  const [selectedOption, setSelectedOption] = useState(null);
+  console.log(plans);
 
-  /**
-   * Handles the click event on a div element.
-   *
-   * @param {string} name - The name of the clicked div element.
-   * @return {undefined} This function does not return a value.
-   */
   const handleDivClick = (name) => {
-    setSelectedOption(name);
+    if (selectedOption !== name) {
+      setSelectedOption(name);
+      dispatch(setFormPlan({ plan: { name: name, type: plans.type } }));
+    } else {
+      setSelectedOption(null);
+      dispatch(setFormPlan({ plan: { name: "", type: plans.type } }));
+    }
   };
+
+  useEffect(() => {
+
+    if (planType == true) {
+      dispatch(setFormPlan({ plan: { name: plans.name, type: "Yearly" } }))
+    } else {
+      dispatch(setFormPlan({ plan: { name: plans.name, type: plans.type } }))
+    }
+
+  }, [planType])
 
   return (
     <>
@@ -41,8 +55,16 @@ function FormPlan() {
         {/* Option Plan */}
         <div className="plan">
           {checkboxes.map((checkbox) => (
-            <div className={checkbox.name + (selectedOption === checkbox.name ? ' active' : '')} key={checkbox.name} onClick={() => handleDivClick(checkbox.name)}>
-              <label htmlFor={checkbox.name}>{checkbox.label}
+            <div className={checkbox.name + (selectedOption === checkbox.name ? ' active' : '')}
+              key={checkbox.name}
+              onClick={() => handleDivClick(checkbox.name)}>
+              <label htmlFor={checkbox.name}>
+                <h4>{checkbox.name.charAt(0).toUpperCase() + checkbox.name.slice(1)}</h4>
+                {planType === true ?
+                  <small>${checkbox.priceYearly}/yr</small>
+                  :
+                  <small>${checkbox.priceMonthly}/mo</small>
+                }
                 <input
                   type="radio"
                   id={checkbox.name}
@@ -58,7 +80,7 @@ function FormPlan() {
         {/* plan subs */}
         <div className='plan-subs'>
           <p>Monthly</p>
-          <input type="checkbox" />
+          <input type="checkbox" onChange={() => setPlanType((prev) => !prev)} />
           <p>Yearly</p>
         </div>
       </section>

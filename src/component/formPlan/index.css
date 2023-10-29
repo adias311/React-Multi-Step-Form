@@ -12,4 +12,20 @@
 
 :is(.arcade , .advanced , .pro).active {
   border: 1.6px solid rgb(26, 52, 139);
+  background-color:rgb(230, 245, 252);
+}
+
+.plan-subs {
+  margin-top: 30px;
+  background-color:rgb(230, 245, 252);
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  border-radius: 10px;
+}
+
+input[type="radio"] {
+  display: none;
 }

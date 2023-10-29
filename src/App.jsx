@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import FormStep from './component/formStep/index';
 import FormPersonal from './component/formPersonal/index';
@@ -7,15 +7,16 @@ import FormAddOns from './component/formAddOns/index';
 import FormSummary from './component/formSummary/index';
 import { useSelector, useDispatch } from 'react-redux';
 import { getStep } from './redux/actions/formSlice';
+import formReducer from "../src/redux/actions/formSlice";
+
 
 function App() {
   const dispatch = useDispatch();
   const { step } = useSelector((state) => state.formStep);
 
-
   const next = () => {
     if (step < 4) {
-      dispatch(getStep({ step: step + 1 })); 
+      dispatch(getStep({ step: step + 1 }));
     }
   };
 

@@ -50,6 +50,12 @@
   border: white solid 1.4px;
 }
 
+.step_info.active p {
+  color: black;
+  background-color: rgb(176, 220, 240);
+  border: none;
+}
+
 .step_info div > * {
   color: white;
 }

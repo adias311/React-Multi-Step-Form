@@ -33,7 +33,9 @@ function FormPersonal() {
         {/* add-ons */}
         <div className="add-ons">
           {checkboxes.map((checkbox) => (
-            <div className={checkbox.name + (checkedBoxes[checkbox.name] ? ' active' : '')} key={checkbox.name} onClick={() => handleDivClick(checkbox.name)}>
+            <div className={checkbox.name + (checkedBoxes[checkbox.name] ? ' active' : '')}
+              key={checkbox.name}
+              onClick={() => handleDivClick(checkbox.name)}>
               <label htmlFor={checkbox.name}>{checkbox.label}
                 <input type="checkbox" id={checkbox.name} checked={checkedBoxes[checkbox.name] || false} onChange={(e) => e.preventDefault} />
               </label>

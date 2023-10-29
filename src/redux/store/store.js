@@ -1,11 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import formReducer from "../actions/formSlice";
 
+import { persistStore } from 'redux-persist';
 
-export const store = configureStore({
-  reducer: {
-    formStep: formReducer
-  },
-});
+import rootReducer from '../persist/persistReducer';
+
+const store = configureStore(rootReducer);
+const persistor = persistStore(store);
+
+export { store, persistor };
 
 

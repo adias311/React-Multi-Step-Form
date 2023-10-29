@@ -1,8 +1,8 @@
 import React from 'react'
 
-function FormStep({ stepNumber, title }) {
+function FormStep({ stepNumber, title, isActive }) {
   return (
-    <div className="step_info">
+    <div className={`step_info ${isActive ? "active" : ""}`} >
       <p>{stepNumber}</p>
       <div>
         <h6>STEP {stepNumber}</h6>
