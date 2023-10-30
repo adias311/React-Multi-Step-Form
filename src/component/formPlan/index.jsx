@@ -7,7 +7,7 @@ import { setFormPlan } from '../../redux/actions/formSlice';
 function FormPlan() {
 
   const dispatch = useDispatch();
-  const { plan: plans } = useSelector((state) => state.formStep);
+  const plans  = useSelector((state) => state.formSlice.plan);
 
   const [selectedOption, setSelectedOption] = useState(null);
   const [planType, setPlanType] = useState(false);

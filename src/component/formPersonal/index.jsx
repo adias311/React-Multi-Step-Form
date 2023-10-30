@@ -1,26 +1,27 @@
-import React, { useState , useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './index.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { setFormPersonal } from '../../redux/actions/formSlice';
 
 function FormPersonal() {
   const dispatch = useDispatch();
-  const { data } = useSelector((state) => state.formStep);
+  const formDataFromRedux = useSelector((state) => state.formSlice.data);
+
+  console.log(formDataFromRedux);
+  
+  // Inisialisasi data form dengan data dari Redux jika data dari Redux tidak kosong
+  const [formData, setFormData] = useState({
+    name: formDataFromRedux.nama || '',
+    email: formDataFromRedux.emailAddress || '',
+    phone: formDataFromRedux.phoneNumber || '',
+  });
 
   useEffect(() => {
-    console.table (data);
-  }, [data]);
+    console.table(formDataFromRedux);
+  }, [formDataFromRedux]);
 
-
-
-  const [formData, setFormData] = useState({
-    name: data.nama || '',
-    email: data.emailAddress || '',
-    phone: data.phoneNumber || '',
-  });
-  
   const handleChange = (field, value) => {
-    const updatedData = { ...formData, [field] : value };
+    const updatedData = { ...formData, [field]: value };
     setFormData(updatedData);
     dispatch(setFormPersonal({ data: updatedData }));
   };
@@ -39,7 +40,7 @@ function FormPersonal() {
             type="text"
             id="name"
             placeholder='Enter your name'
-            value={formData.name}
+            value={formDataFromRedux.name}
             onChange={(e) => handleChange('name', e.target.value)}
           />
         </div>
@@ -49,7 +50,7 @@ function FormPersonal() {
             type="email"
             id="email"
             placeholder='Enter your email'
-            value={formData.email}
+            value={formDataFromRedux.email}
             onChange={(e) => handleChange('email', e.target.value)}
           />
         </div>
@@ -59,7 +60,7 @@ function FormPersonal() {
             type="tel"
             id="phone"
             placeholder='Enter your phone'
-            value={formData.phone}
+            value={formDataFromRedux.phone}
             onChange={(e) => handleChange('phone', e.target.value)}
           />
         </div>

@@ -12,7 +12,7 @@ import formReducer from "../src/redux/actions/formSlice";
 
 function App() {
   const dispatch = useDispatch();
-  const { step } = useSelector((state) => state.formStep);
+  const step  = useSelector((state) => state.formSlice.step);
 
   const next = () => {
     if (step < 4) {
