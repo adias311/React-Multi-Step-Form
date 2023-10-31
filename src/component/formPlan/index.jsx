@@ -7,10 +7,10 @@ import { setFormPlan } from '../../redux/actions/formSlice';
 function FormPlan() {
 
   const dispatch = useDispatch();
-  const plans  = useSelector((state) => state.formSlice.plan);
+  const plans = useSelector((state) => state.formSlice.plan);
 
-  const [selectedOption, setSelectedOption] = useState(null);
-  const [planType, setPlanType] = useState(false);
+  const [selectedOption, setSelectedOption] = useState(plans.name ? plans.name : null);
+  const [planType, setPlanType] = useState(plans.type === "Yearly" ? true : false);
 
   // List of checkboxes
   const checkboxes = [
@@ -19,16 +19,17 @@ function FormPlan() {
     { name: 'pro', priceMonthly: 15, priceYearly: 150 },
   ];
 
-  console.log(plans);
 
   const handleDivClick = (name) => {
     if (selectedOption !== name) {
       setSelectedOption(name);
       dispatch(setFormPlan({ plan: { name: name, type: plans.type } }));
+
     } else {
       setSelectedOption(null);
       dispatch(setFormPlan({ plan: { name: "", type: plans.type } }));
     }
+
   };
 
   useEffect(() => {
@@ -36,10 +37,12 @@ function FormPlan() {
     if (planType == true) {
       dispatch(setFormPlan({ plan: { name: plans.name, type: "Yearly" } }))
     } else {
-      dispatch(setFormPlan({ plan: { name: plans.name, type: plans.type } }))
+      dispatch(setFormPlan({ plan: { name: plans.name, type: "Monthly" } }))
     }
 
   }, [planType])
+
+  console.log(plans);
 
   return (
     <>
@@ -80,7 +83,10 @@ function FormPlan() {
         {/* plan subs */}
         <div className='plan-subs'>
           <p>Monthly</p>
-          <input type="checkbox" onChange={() => setPlanType((prev) => !prev)} />
+          <input type="checkbox"
+            checked={plans.type === "Yearly"}
+            onChange={() => setPlanType((prev) => !prev)}
+          />
           <p>Yearly</p>
         </div>
       </section>
@@ -89,3 +95,4 @@ function FormPlan() {
 }
 
 export default FormPlan;
+
