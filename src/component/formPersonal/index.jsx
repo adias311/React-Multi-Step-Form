@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './index.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { setFormPersonal } from '../../redux/actions/formSlice';
@@ -6,23 +6,9 @@ import { setFormPersonal } from '../../redux/actions/formSlice';
 function FormPersonal() {
   const dispatch = useDispatch();
   const formDataFromRedux = useSelector((state) => state.formSlice.data);
-
-  console.log(formDataFromRedux);
-  
-  // Inisialisasi data form dengan data dari Redux jika data dari Redux tidak kosong
-  const [formData, setFormData] = useState({
-    name: formDataFromRedux.nama || '',
-    email: formDataFromRedux.emailAddress || '',
-    phone: formDataFromRedux.phoneNumber || '',
-  });
-
-  useEffect(() => {
-    console.table(formDataFromRedux);
-  }, [formDataFromRedux]);
-
+ console.log(formDataFromRedux);
   const handleChange = (field, value) => {
-    const updatedData = { ...formData, [field]: value };
-    setFormData(updatedData);
+    const updatedData = { ...formDataFromRedux, [field]: value };
     dispatch(setFormPersonal({ data: updatedData }));
   };
 
