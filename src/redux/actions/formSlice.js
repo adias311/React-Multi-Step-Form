@@ -13,11 +13,14 @@ const formSlice = createSlice({
     plan: {
       name: "",
       type: "Monthly",
-      price : 0
-    },  
-      addOns : {
-        name : null
-      }
+      price: 0
+    },
+    addOns: {
+      name: null
+    },
+    summary: {
+
+    }
   },
   reducers: {
     getStep: (state, action) => {
@@ -32,10 +35,12 @@ const formSlice = createSlice({
     },
     setFormAddOns: (state, action) => {
       state.addOns = action.payload.addOns;
+    },
+    setSubmitForm: (state, action) => {
+      state.summary = action.payload.summary;
     }
   }
 });
 
-
-export const { getStep, setFormPersonal, setFormPlan , setFormAddOns} = formSlice.actions;
+export const { getStep, setFormPersonal, setFormPlan, setFormAddOns , setSubmitForm } = formSlice.actions;
 export default formSlice.reducer;
