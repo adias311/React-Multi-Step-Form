@@ -1,16 +1,34 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './index.css'
+import { useDispatch, useSelector } from 'react-redux';
+import { setFormAddOns } from '../../redux/actions/formSlice'
 
-function FormPersonal() {
 
-  // List of checkboxes
+function FormAddOns() {
+
+  const addOns = useSelector((state) => state.formSlice.addOns);
+  console.log(addOns);
+  const dispatch = useDispatch();
+
   const checkboxes = [
     { name: 'online-service', label: 'online-service' },
     { name: 'larger-storage', label: 'larger-storage' },
     { name: 'custom', label: 'custom' },
   ];
 
-  const [checkedBoxes, setCheckedBoxes] = useState({});
+  const [checkedBoxes, setCheckedBoxes] = useState(
+    addOns
+      ? addOns.reduce((result, item) => {
+          result[item] = true;
+          return result;
+        }, {})
+      : {}
+  );  
+
+  useEffect(() => {
+    const selectedAddOns = Object.keys(checkedBoxes).filter((key) => checkedBoxes[key]);
+    dispatch(setFormAddOns({ addOns: selectedAddOns }));
+  }, [checkedBoxes]);
 
   const handleDivClick = (name) => {
     setCheckedBoxes((prevState) => ({
@@ -49,4 +67,4 @@ function FormPersonal() {
   )
 }
 
-export default FormPersonal
+export default FormAddOns;

@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+
 const formSlice = createSlice({
   name: "stepForm",
   initialState: {
@@ -12,7 +13,8 @@ const formSlice = createSlice({
     plan: {
       name: "",
       type: "Monthly"
-    }
+    }, 
+    addOns : []
   },
   reducers: {
     getStep: (state, action) => {
@@ -24,10 +26,13 @@ const formSlice = createSlice({
     },
     setFormPlan: (state, action) => {
       state.plan = action.payload.plan;
+    },
+    setFormAddOns: (state, action) => {
+      state.addOns = action.payload.addOns;
     }
   }
 });
 
 
-export const { getStep, setFormPersonal, setFormPlan } = formSlice.actions;
+export const { getStep, setFormPersonal, setFormPlan , setFormAddOns} = formSlice.actions;
 export default formSlice.reducer;

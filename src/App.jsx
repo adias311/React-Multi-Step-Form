@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './App.css';
 import FormStep from './component/formStep/index';
 import FormPersonal from './component/formPersonal/index';
@@ -7,8 +7,6 @@ import FormAddOns from './component/formAddOns/index';
 import FormSummary from './component/formSummary/index';
 import { useSelector, useDispatch } from 'react-redux';
 import { getStep } from './redux/actions/formSlice';
-import formReducer from "../src/redux/actions/formSlice";
-
 
 console.log("1");
 function App() {
