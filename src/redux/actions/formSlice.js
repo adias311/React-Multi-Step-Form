@@ -12,9 +12,12 @@ const formSlice = createSlice({
     },
     plan: {
       name: "",
-      type: "Monthly"
-    }, 
-    addOns : []
+      type: "Monthly",
+      price : 0
+    },  
+      addOns : {
+        name : null
+      }
   },
   reducers: {
     getStep: (state, action) => {

@@ -20,10 +20,10 @@ function FormPlan() {
   ];
 
 
-  const handleDivClick = (name) => {
+  const handleDivClick = (name, price) => {
     if (selectedOption !== name) {
       setSelectedOption(name);
-      dispatch(setFormPlan({ plan: { name: name, type: plans.type } }));
+      dispatch(setFormPlan({ plan: { name: name, type: plans.type, price: price } }));
 
     } else {
       setSelectedOption(null);
@@ -35,9 +35,9 @@ function FormPlan() {
   useEffect(() => {
 
     if (planType == true) {
-      dispatch(setFormPlan({ plan: { name: plans.name, type: "Yearly" } }))
+      dispatch(setFormPlan({ plan: { name: plans.name, type: "Yearly", price: plans.price } }))
     } else {
-      dispatch(setFormPlan({ plan: { name: plans.name, type: "Monthly" } }))
+      dispatch(setFormPlan({ plan: { name: plans.name, type: "Monthly", price: plans.price } }))
     }
 
   }, [planType])
@@ -60,7 +60,7 @@ function FormPlan() {
           {checkboxes.map((checkbox) => (
             <div className={checkbox.name + (selectedOption === checkbox.name ? ' active' : '')}
               key={checkbox.name}
-              onClick={() => handleDivClick(checkbox.name)}>
+              onClick={() => handleDivClick(checkbox.name , checkbox.priceMonthly)}>
               <label htmlFor={checkbox.name}>
                 <h4>{checkbox.name.charAt(0).toUpperCase() + checkbox.name.slice(1)}</h4>
                 {planType === true ?

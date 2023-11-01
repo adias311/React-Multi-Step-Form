@@ -7,28 +7,28 @@ import { setFormAddOns } from '../../redux/actions/formSlice'
 function FormAddOns() {
 
   const addOns = useSelector((state) => state.formSlice.addOns);
+  const plan = useSelector((state) => state.formSlice.plan);
+  const [checkedBoxes, setCheckedBoxes] = useState(addOns || {});
   console.log(addOns);
   const dispatch = useDispatch();
 
   const checkboxes = [
-    { name: 'online-service', label: 'online-service' },
-    { name: 'larger-storage', label: 'larger-storage' },
-    { name: 'custom', label: 'custom' },
+    { name: 'online-service', label: 'online-service', priceMonthly: 1, priceYearly: 10 },
+    { name: 'larger-storage', label: 'larger-storage', priceMonthly: 2, priceYearly: 20 },
+    { name: 'custom', label: 'custom', priceMonthly: 2, priceYearly: 20 },
   ];
 
-  const [checkedBoxes, setCheckedBoxes] = useState(
-    addOns
-      ? addOns.reduce((result, item) => {
-          result[item] = true;
-          return result;
-        }, {})
-      : {}
-  );  
 
   useEffect(() => {
-    const selectedAddOns = Object.keys(checkedBoxes).filter((key) => checkedBoxes[key]);
+    const selectedAddOns = {};
+    checkboxes.forEach((checkbox) => {
+      if (checkedBoxes[checkbox.name]) {
+        selectedAddOns[checkbox.name] = checkbox.priceMonthly;
+      }
+    });
     dispatch(setFormAddOns({ addOns: selectedAddOns }));
   }, [checkedBoxes]);
+
 
   const handleDivClick = (name) => {
     setCheckedBoxes((prevState) => ({
@@ -36,6 +36,7 @@ function FormAddOns() {
       [name]: !prevState[name],
     }));
   };
+
 
   return (
     <>
@@ -55,6 +56,7 @@ function FormAddOns() {
               key={checkbox.name}
               onClick={() => handleDivClick(checkbox.name)}>
               <label htmlFor={checkbox.name}>{checkbox.label}
+                <small>+${plan.type === "Yearly" ? checkbox.priceYearly : checkbox.priceMonthly}/{plan.type === "Yearly" ? "yr" : "mo"}</small>
                 <input type="checkbox" id={checkbox.name} checked={checkedBoxes[checkbox.name] || false} onChange={(e) => e.preventDefault} />
               </label>
             </div>
