@@ -24,7 +24,7 @@
   background-image: url("../public/assets/images/bg-sidebar-desktop.svg");
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center -40px;
+  background-position: center center;
   border-radius: 10px;
   padding-top: 50px;
   padding-left: 50px;
@@ -56,17 +56,17 @@
   border: none;
 }
 
-.step_info div > * {
+.step_info div>* {
   color: white;
 }
 
 .form {
   grid-area: form;
-  width: 70%;
+  width: 80%;
 }
 
 .form_title h2 {
-  padding-bottom: 5px ;
+  padding-bottom: 5px;
 }
 
 .form_title p {
@@ -76,23 +76,25 @@
 }
 
 .form form {
-  height: 80vh;
+  height: 100%;
   padding-top: 5vh;
   display: grid;
-  grid-template-areas: 
-  "title"
-  "body"
-  "navigate" ;
-  grid-template-rows: 20% 60% 20%;
+  grid-template-areas:
+    "title"
+    "body"
+    "navigate";
+  grid-template-rows: 20% 70% 15%;
   grid-template-columns: 1fr;
 }
 
 .form form .form_title {
   grid-area: title;
 }
+
 .form form .form_body {
   grid-area: body;
 }
+
 .form form .form_navigate {
   grid-area: navigate;
   display: flex;
@@ -108,7 +110,8 @@
   align-items: center;
 }
 
-.form_navigate .prev , .form_navigate .next {
+.form_navigate .prev,
+.form_navigate .next {
   background-color: rgb(18, 39, 109);
   color: white;
   border: none;
@@ -118,11 +121,91 @@
   font-weight: bold;
 }
 
-.form_navigate .prev  {
+.form_navigate .prev {
   color: rgb(129, 124, 124);
   background-color: transparent;
 }
 
-.form_navigate .prev:hover{
+.form_navigate .prev:hover {
   color: rgb(18, 39, 109);
+}
+
+
+/* Responsive dekstop 1200px */
+@media screen and (min-width: 1200px) and (min-height: 720px) {
+  .form_container {
+    height: 80vh;
+  }
+}
+
+/* Responsive tablet 920px */
+@media screen and (max-width: 920px) {
+  .form_container {
+    height: 800px;
+    width: 80%;
+    grid-template-areas:
+      "step step"
+      "form form"
+      "navigate navigate";
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 20% 55% 10%;
+    padding: 40px;
+  }
+
+  .step {
+    width: 100%;
+    background-image: url("../public/assets/images/bg-sidebar-mobile.svg");
+    background-position: center -25px;
+    padding-top: 0;
+    padding-left: 0;
+    place-items: center;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 0;
+  }
+
+  .step_info {
+    gap: 10px;
+  }
+  
+  .step_info p {
+    color: rgb(0, 0, 0);
+    border: rgb(0, 0, 0) solid 1.5px;
+  }
+  
+  .step_info.active p {
+    color: black;
+  }
+
+  .step_info div>* {
+    color: rgb(13, 13, 13);
+  }
+
+  .form {
+    margin: 0 auto ;
+    width: 70%;
+  }
+
+  .form form {
+    height: 100%;
+    padding-top: 4vh;
+    grid-template-rows: 20% 75% 10%;
+    gap: 80px;
+  }
+  
+  .form_title h2 {
+    font-size: 2.45rem;
+    padding-bottom: 10px;
+  }
+  
+  .form_title p {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  
+  .form_navigate .prev,
+  .form_navigate .next {
+    padding: 12px;
+  }
+  
 }

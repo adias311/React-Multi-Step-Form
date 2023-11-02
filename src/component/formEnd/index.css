@@ -1,0 +1,27 @@
+.form#form_end {
+  grid-area: form;
+  width: 90%;
+  height: 100%;
+}
+
+.form form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.thank_you {
+  text-align: center;
+}
+
+.thanks#thanks {
+  text-align: center;
+}
+
+@media screen and (max-width: 920px) {
+  .form {
+    grid-area: form;
+    width: 80%;
+    height: 100%;
+  }
+}
